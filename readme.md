@@ -20,16 +20,21 @@ At present, we have determined the layered design of the whole application, main
 1. setState parameter can be either an object or a function, use immer library to update
 
 ```js
-import { IState, ITodoState } from ". /types".
-import { defineStore, useSelector } from "silver-store".
+import { IState, ITodoState } from ". /types";
+import { defineStore, useSelector } from "silver-store";
+
 const namespace = "todos";
-const { getState, setState, store } = defineStore <ITodoState >("todos",{
-    current: 0.
-    list: [].
-  }).
+const { getState, setState, store } =
+  defineStore <
+  ITodoState >
+  ("todos",
+  {
+    current: 0,
+    list: [],
+  });
 
 export const addTask = (id, name) => {
-  let list = getState().list.
+  let list = getState().list;
   // Combine with immer to do state updates
   setState((state) => {
     state.list = list.concat({ id, name });
@@ -47,7 +52,17 @@ export const userList = () => {
     useSelector <
     IState >
     ((state) => {
-      state.todos;
+      return state.todos;
+    })
+  );
+};
+
+export const userList2 = () => {
+  return (
+    useSelector <
+    IState >
+    ((state) => {
+      return getState().todos;
     })
   );
 };
@@ -59,7 +74,7 @@ export const userList = () => {
 
 ```js
 import React, { useContext, useMemo } from "react";
-import { addTask, setCurrent } from ".. /.. /store/todos";
+import { addTask, setCurrent, useList } from ".. /.. /store/todos";
 import { useSelector } from "silver-store";
 
 export default function Todos() {
