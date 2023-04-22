@@ -19,19 +19,15 @@ At present, we have determined the layered design of the whole application, main
 1. remember to add TS type definition to the state
 1. setState parameter can be either an object or a function, use immer library to update
 
-```js
+```ts
 import { IState, ITodoState } from ". /types";
 import { defineStore, useSelector } from "silver-store";
 
 const namespace = "todos";
-const { getState, setState, store } =
-  defineStore <
-  ITodoState >
-  ("todos",
-  {
-    current: 0,
-    list: [],
-  });
+const { getState, setState, store } = defineStore<ITodoState>("todos", {
+  current: 0,
+  list: [],
+});
 
 export const addTask = (id, name) => {
   let list = getState().list;
@@ -48,23 +44,15 @@ export const setCurrent = (current) => {
 };
 
 export const userList = () => {
-  return (
-    useSelector <
-    IState >
-    ((state) => {
-      return state.todos;
-    })
-  );
+  return useSelector<IState>((state) => {
+    return state.todos;
+  });
 };
 
 export const userList2 = () => {
-  return (
-    useSelector <
-    IState >
-    ((state) => {
-      return getState().todos;
-    })
-  );
+  return useSelector<IState>((state) => {
+    return getState().todos;
+  });
 };
 ```
 
@@ -72,7 +60,7 @@ export const userList2 = () => {
 
 1. Use useSelector to subscribe store
 
-```js
+```tsx
 import React, { useContext, useMemo } from "react";
 import { addTask, setCurrent, useList } from ".. /.. /store/todos";
 import { useSelector } from "silver-store";

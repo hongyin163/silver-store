@@ -11,7 +11,7 @@ The overall layered design of the entire application has been determined, mainly
 1. Retain time travel ability
 1. Utilize the type constraint ability of TypeScript
 
-## 调研
+## Research
 
 ### Dvajs
 
@@ -299,7 +299,7 @@ function App() {
 1. Simplifies the use of Redux middleware
 1. Compatible with Redux DevTools
 
-```js
+```ts
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const counterSlice = createSlice({
@@ -423,22 +423,19 @@ Problems:
 
 1. reducer and actions are gone, the log is printed out through the execution stack
 
-```js
-import { IState, ITodoState } from "./types";
-import { defineStore, useSelector } from "../util/store";
+```ts
+import { IState, ITodoState } from ". /types";
+import { defineStore, useSelector } from "silver-store";
 
-const { getState, setState, store } =
-  defineStore <
-  ITodoState >
-  ("todos",
-  {
-    current: 0,
-    list: [],
-  });
+const namespace = "todos";
+const { getState, setState, store } = defineStore<ITodoState>("todos", {
+  current: 0,
+  list: [],
+});
 
 export const addTask = (id, name) => {
   let list = getState().list;
-  // 结合 immer 做状态更新
+  // Combine with immer to do state updates
   setState((state) => {
     state.list = list.concat({ id, name });
   });
@@ -450,13 +447,48 @@ export const setCurrent = (current) => {
   });
 };
 
-export const useList = () => {
-  return (
-    useSelector <
-    IState >
-    ((state) => {
-      state.todos;
-    })
-  );
+export const userList = () => {
+  return useSelector<IState>((state) => {
+    return state.todos;
+  });
 };
+
+export const userList2 = () => {
+  return useSelector<IState>((state) => {
+    return getState().todos;
+  });
+};
+```
+
+### Use Store
+
+1. Use useSelector to subscribe store
+
+```tsx
+import React, { useContext, useMemo } from "react";
+import { addTask, setCurrent, useList } from ".. /.. /store/todos";
+import { useSelector } from "silver-store";
+
+export default function Todos() {
+  const { list, current } = useList();
+
+  function add() {
+    addTask(Math.random(), Math.random());
+  }
+  function setNow(i) {
+    setCurrent(i);
+  }
+  return (
+    <div>
+      {list.map(({ id, name }, i) => {
+        return (
+          <div id={id} key={i} onClick={setNow.bind(null, i)}>
+            {name} {current === i ? "now" : ""}
+          </div>
+        );
+      })}
+      <button onClick={add}>add</button>
+    </div>
+  );
+}
 ```
