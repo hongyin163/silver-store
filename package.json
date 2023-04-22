@@ -1,0 +1,19 @@
+{
+  "name": "silver-store",
+  "version": "0.0.1",
+  "description": "Lightweight state management library based on Redux design thinking",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "/dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38"
+  },
+  "dependencies": {
+    "immer": "^9.0.12"
+  }
+}
