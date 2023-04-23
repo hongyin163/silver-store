@@ -1,4 +1,4 @@
-## Situation
+## Background
 
 Currently, the application structure in our systems is not very clear. For state management, there are both Redux + Saga and hook APIs. A consistent design solution for state management is needed, as the Redux + Saga solution is too complex to be easily promoted, and the hook API can achieve logic sharing but not state sharing.
 
@@ -412,7 +412,7 @@ function Counter() {
 
 ```
 
-### 新的尝试
+### Our solution
 
 1. Similar to the ORM idea, and Redux similar, update state without reducer
 1. TS type friendly
@@ -428,7 +428,7 @@ import { IState, ITodoState } from ". /types";
 import { defineStore, useSelector } from "silver-store";
 
 const namespace = "todos";
-const { getState, setState, store } = defineStore<ITodoState>("todos", {
+const { getState, setState, store } = defineStore<ITodoState>(namespace, {
   current: 0,
   list: [],
 });
@@ -447,6 +447,7 @@ export const setCurrent = (current) => {
   });
 };
 
+// Use useSelector to subscribe store
 export const userList = () => {
   return useSelector<IState>((state) => {
     return state.todos;
@@ -461,8 +462,6 @@ export const userList2 = () => {
 ```
 
 ### Use Store
-
-1. Use useSelector to subscribe store
 
 ```tsx
 import React, { useContext, useMemo } from "react";

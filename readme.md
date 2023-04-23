@@ -1,4 +1,4 @@
-## situation
+## Background
 
 The current structure of the application in our system is not very clear, there are redux + saga and hook api for state management.
 
@@ -24,7 +24,7 @@ import { IState, ITodoState } from ". /types";
 import { defineStore, useSelector } from "silver-store";
 
 const namespace = "todos";
-const { getState, setState, store } = defineStore<ITodoState>("todos", {
+const { getState, setState, store } = defineStore<ITodoState>(namespace, {
   current: 0,
   list: [],
 });
@@ -43,6 +43,7 @@ export const setCurrent = (current) => {
   });
 };
 
+// Use useSelector hook to subscribe store
 export const userList = () => {
   return useSelector<IState>((state) => {
     return state.todos;
@@ -57,8 +58,6 @@ export const userList2 = () => {
 ```
 
 ### Use Store
-
-1. Use useSelector to subscribe store
 
 ```tsx
 import React, { useContext, useMemo } from "react";
