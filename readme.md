@@ -1,6 +1,6 @@
-## Background
+## Silver Store
 
-The current structure of the application in our system is not very clear, there are redux + saga and hook api for state management.
+A simple, easy-to-use React Store solution, based on immerjs.
 
 ## Objectives
 
@@ -10,6 +10,12 @@ At present, we have determined the layered design of the whole application, main
 1. Improve maintainability
 1. Preserve the Time Travel capability
 1. The ability to take advantage of TS type constraints
+
+## Install
+
+```
+npm install silver-store or yarn add silver-store
+```
 
 ## Use
 
