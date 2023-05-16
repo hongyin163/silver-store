@@ -4,8 +4,6 @@ A simple, easy-to-use React Store solution, based on immerjs.
 
 ## Objectives
 
-At present, we have determined the layered design of the whole application, mainly including store, pages, components, etc. In the future, we will put the data and business logic in the store, and the view will only be responsible for rendering from data to UI, and the event trigger will call the api of the store layer, so that the code of the components is less and the logic in the store can be better shared. This way, the components have less code and the logic in the store can be better shared.
-
 1. Improve development efficiency
 1. Improve maintainability
 1. Preserve the Time Travel capability
